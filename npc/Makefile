@@ -1,4 +1,7 @@
 BUILD_DIR = ./build
+MODULE = GCD
+
+
 
 test:
 	mill -i __.test
@@ -28,8 +31,18 @@ clean:
 
 .PHONY: test verilog help compile bsp reformat checkformat clean
 
-sim:
+sim:$(BUILD_DIR)/$(GCD).v $(BUILD_DIR)/$(GCD).cpp
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
-	@echo "Write this Makefile by yourself."
+	@echo "VERILATOR"
+	#@echo "Write this Makefile by yourself."
+	verilator -Wall --trace -cc --exe $<
+
+wave:$(BUILD_DIR)/obj_dir/waveform.vcd
+	$echo "VIEW WAVES"
+	gtkwave $<
+
+$(BUILD_DIR)/obj_dir/waveform.vcd:$(BUILD_DIR)/$(GCD).v $(BUILD_DIR)/$(GCD).cpp
+	@$(BUILD_DIR)/obj_dir/V$(MODULE)
+
 
 include ../Makefile
