@@ -19,9 +19,17 @@ enum {
 #define src2I(i) do { *src2 = i; } while (0)
 #define destI(i) do { *dest = i; } while (0)
 
-static word_t immI(uint32_t i) { return SEXT(BITS(i, 31, 20), 12); }
-static word_t immU(uint32_t i) { return SEXT(BITS(i, 31, 12), 20) << 12; }
-static word_t immS(uint32_t i) { return (SEXT(BITS(i, 31, 25), 7) << 5) | BITS(i, 11, 7); }
+static word_t immI(uint32_t i) { 
+	return SEXT(BITS(i, 31, 20), 12); 
+}
+
+static word_t immU(uint32_t i) {
+	return SEXT(BITS(i, 31, 12), 20) << 12; 
+}
+
+static word_t immS(uint32_t i) {
+	return (SEXT(BITS(i, 31, 25), 7) << 5) | BITS(i, 11, 7);
+}
 
 static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, int type) {
   uint32_t i = s->isa.inst.val;
@@ -34,7 +42,7 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
     case TYPE_U: src1I(immU(i)); break;
     case TYPE_S: destI(immS(i)); src1R(rs1); src2R(rs2); break;
   }
-}
+}// 根据指令类型给操作数赋值，寄存器的位置或者，立即数的value
 
 static int decode_exec(Decode *s) {
   word_t dest = 0, src1 = 0, src2 = 0;
@@ -61,6 +69,6 @@ static int decode_exec(Decode *s) {
 }
 
 int isa_exec_once(Decode *s) {
-  s->isa.inst.val = inst_fetch(&s->snpc, 4);
-  return decode_exec(s);
+  s->isa.inst.val = inst_fetch(&s->snpc, 4);// read the instruction value to decoder
+  return decode_exec(s);// execute the instruction
 }
