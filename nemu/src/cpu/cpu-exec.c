@@ -31,7 +31,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 		nemu_state.state = NEMU_STOP;
 		printf("expression(%s)'s value was changed.\n", e);
 	}
-	 #endif
+	#endif
 }
 
 static void exec_once(Decode *s, vaddr_t pc) {
@@ -39,7 +39,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   s->snpc = pc;
   isa_exec_once(s);
   cpu.pc = s->dnpc;
-#ifdef CONFIG_ITRACE
+#ifdef CONFIG_ITRACE // 我开了itrace了吗
   char *p = s->logbuf;
   p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
   int ilen = s->snpc - s->pc;
