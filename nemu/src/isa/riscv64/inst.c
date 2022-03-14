@@ -66,12 +66,12 @@ static word_t immS(uint32_t i)
 
 static word_t immB(uint32_t i)
 {
-	return (SEXT(BITS(i, 12, 12), 1) << 12) | (BITS(i, 10, 5) << 5) | (BITS(i, 4, 1) << 1) | (BITS(i, 11, 11) << 11);
+	return (SEXT(BITS(i, 31, 31), 1) << 12) | (BITS(i, 30, 25) << 5) | (BITS(i, 11, 8) << 1) | (BITS(i, 7, 7) << 11);
 }
 
 static word_t immJ(uint32_t i)
 {
-	return (SEXT(BITS(i, 20, 20), 1) << 20) | (BITS(i, 10, 1) << 1) | (BITS(i, 11, 11) << 11) | (BITS(i, 19, 12) << 12);
+	return (SEXT(BITS(i, 31, 31), 1) << 20) | (BITS(i, 30, 21) << 1) | (BITS(i, 20, 20) << 11) | (BITS(i, 19, 12) << 12);
 }
 
 static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, int type)
