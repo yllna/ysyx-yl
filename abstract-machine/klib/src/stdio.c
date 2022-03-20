@@ -5,12 +5,14 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
-int printf(const char *fmt, ...) {
-  panic("Not implemented");
+int printf(const char *fmt, ...)
+{
+	panic("Not implemented");
 }
 
-int vsprintf(char *out, const char *fmt, va_list ap) {
-  panic("Not implemented");
+int vsprintf(char *out, const char *fmt, va_list ap)
+{
+	panic("Not implemented");
 }
 
 int sprintf(char *out, const char *fmt, ...)
@@ -31,7 +33,7 @@ int sprintf(char *out, const char *fmt, ...)
 			{
 			case 's': /* string */
 				s = va_arg(ap, char *);
-				while (s)
+				while (*s)
 				{
 					out[out_idx++] = *s++;
 				}
@@ -45,7 +47,8 @@ int sprintf(char *out, const char *fmt, ...)
 				{
 					out[out_idx++] = '0';
 				}
-				else if((unsigned)d == 0x80000000){
+				else if ((unsigned)d == 0x80000000)
+				{
 					out[out_idx++] = '-';
 					unsigned d_ = d;
 					while (d_)
@@ -55,7 +58,7 @@ int sprintf(char *out, const char *fmt, ...)
 					}
 					while (number_idx)
 					{
-						out[out_idx++] = number[number_idx--];
+						out[out_idx++] = number[--number_idx];
 					}
 				}
 				else
@@ -72,16 +75,16 @@ int sprintf(char *out, const char *fmt, ...)
 					}
 					while (number_idx)
 					{
-						out[out_idx++] = number[number_idx--];
+						out[out_idx++] = number[--number_idx];
 					}
 				}
 				counter++;
 				break;
-				// case 'c': /* char */
-				// 	/* need a cast here since va_arg only
-				//           takes fully promoted types */
-				// 	c = (char)va_arg(ap, int);
-				// 	break;
+			case 'c': /* char */
+				/* need a cast here since va_arg only
+					  takes fully promoted types */
+				out[out_idx++] = (char)va_arg(ap, int);
+				break;
 			default:
 				out[out_idx++] = *fmt;
 			}
@@ -97,12 +100,14 @@ int sprintf(char *out, const char *fmt, ...)
 	return counter;
 }
 
-int snprintf(char *out, size_t n, const char *fmt, ...) {
-  panic("Not implemented");
+int snprintf(char *out, size_t n, const char *fmt, ...)
+{
+	panic("Not implemented");
 }
 
-int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
-  panic("Not implemented");
+int vsnprintf(char *out, size_t n, const char *fmt, va_list ap)
+{
+	panic("Not implemented");
 }
 
 #endif
