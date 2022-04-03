@@ -27,3 +27,13 @@ class GCD extends Module {
   io.outputGCD   := x
   io.outputValid := y === 0.U
 }
+
+class add extends Module{
+  val io = IO(new Bundle{
+    val x_1 = Input(UInt(32.W))
+    val x_2 = Input(UInt(32.W))
+    val result = Output(UInt(32.W))
+  })
+
+  io.result := io.x_1 + io.x_2
+}
