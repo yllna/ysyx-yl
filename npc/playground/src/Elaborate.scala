@@ -1,4 +1,4 @@
+import chisel3._
 object Elaborate extends App {
-  (new chisel3.stage.ChiselStage).execute(args, Seq(chisel3.stage.ChiselGeneratorAnnotation(() => new GCD())))
-  (new chisel3.stage.ChiselStage).execute(args, Seq(chisel3.stage.ChiselGeneratorAnnotation(() => new add())))
+  (new chisel3.stage.ChiselStage).execute(args, Seq( chisel3.stage.ChiselGeneratorAnnotation( () => new Adder() ) )  )
 }
