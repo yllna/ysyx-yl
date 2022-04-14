@@ -7,6 +7,8 @@
 !*.cc
 !.gitignore
 !README.md
+ 
 !Kconfig
 include/config
 include/generated
+compile_commands.json
