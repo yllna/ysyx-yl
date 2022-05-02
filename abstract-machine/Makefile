@@ -8,13 +8,14 @@ html:
 ## 1. Basic Setup and Checks
 
 ### Default to create a bare-metal kernel image
-ifeq ($(MAKECMDGOALS),)
-  MAKECMDGOALS  = image
+ifeq ($(MAKECMDGOALS),) # Make will set the special variable MAKECMDGOALS to the list of goals you specified on the command line.
+  MAKECMDGOALS  = image # if MAKECMDGOALS is empty, then these statements will be executed
   .DEFAULT_GOAL = image
 endif
 
 ### Override checks when `make clean/clean-all/html`
 ifeq ($(findstring $(MAKECMDGOALS),clean|clean-all|html),)
+# if there is a sting in (clean | clean-all| html), then  commands below will be executed
 
 ### Print build info message
 $(info # Building $(NAME)-$(MAKECMDGOALS) [$(ARCH)])
